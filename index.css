@@ -75,6 +75,17 @@ header {
         color: white;
         border-radius: 3px;
         cursor: pointer;
+
+    }
+
+    button {
+        margin-right: 1vw;
+    }
+
+    
+
+    button:last-child {
+        margin-right: 0;
     }
     
     button:hover {
@@ -133,6 +144,7 @@ header {
             background-color: #5a5a5a;
             text-decoration: none !important;
         }
+
     }
     
 }

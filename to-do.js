@@ -22,27 +22,27 @@ document.addEventListener('DOMContentLoaded', function() {
         textSpan.textContent = `${taskCount}. ${todoText}`;
         li.appendChild(textSpan);
 
+        const completeCheckbox = document.createElement('button');
+        completeCheckbox.classList.add('complete-checkbox');
+        completeCheckbox.innerHTML = '<i class="fas fa-check"></i>';
+        completeCheckbox.addEventListener('click', function(event) {
+            event.stopPropagation();
+            handleComplete(li, completeCheckbox);
+        });
+
         const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
         deleteButton.classList.add('delete-btn');
+        deleteButton.innerHTML = '<i class="fas fa-times"></i>';
         deleteButton.addEventListener('click', function(event) {
-            event.stopPropagation(); // Prevent the li click event from firing
+            event.stopPropagation();
             handleDelete(li);
         });
 
+        li.appendChild(completeCheckbox);
         li.appendChild(deleteButton);
         todoList.appendChild(li);
 
-        li.addEventListener('click', function() {
-            li.classList.toggle('completed');
-            if (li.classList.contains('completed')) {
-                completedList.appendChild(li);
-            } else {
-                todoList.appendChild(li);
-                updateTaskNumbers();
-            }
-            updateHeadings();
-        });
+        updateTaskNumbers();
     }
 
     function updateTaskNumbers() {
@@ -57,6 +57,21 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateHeadings() {
         todoHeading.style.display = todoList.children.length > 0 ? 'block' : 'none';
         completedHeading.style.display = completedList.children.length > 0 ? 'block' : 'none';
+    }
+
+    function handleComplete(taskElement, completeCheckbox) {
+        if (taskElement.classList.contains('completed')) {
+            taskElement.classList.remove('completed');
+            completeCheckbox.style.display = 'inline-block';
+            completeCheckbox.innerHTML = '<i class="fas fa-check"></i>';
+            todoList.appendChild(taskElement);
+            updateTaskNumbers();
+        } else {
+            taskElement.classList.add('completed');
+            completeCheckbox.style.display = 'none';
+            completedList.appendChild(taskElement);
+        }
+        updateHeadings();
     }
 
     function handleDelete(taskElement) {
