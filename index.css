@@ -135,10 +135,17 @@ header {
     }
     
     li.completed {
-        /* text-decoration: line-through; */
+        text-decoration: line-through;
+
+        transition: .3s ease-in-out;
+
         color: #5a5a5a;
         background-color: #363636;
         /* margin-top: 5vh; */
+
+        span {
+            transition: .3s ease-in-out;
+        }
 
         button {
             background-color: #5a5a5a;
@@ -146,6 +153,8 @@ header {
         }
 
     }
+
+
     
 }
 
