@@ -118,12 +118,15 @@ header {
     li span {
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
+
+        display: flex;
+        flex-wrap: wrap;
+        /* white-space: nowrap; */
         flex: 1;
         margin-right: 10px;
         /* margin: 10px; */
-
-        word-wrap: break-word;
+        word-wrap: anywhere;
+        /* word-wrap: break-word; */
     }
     
     
@@ -180,9 +183,9 @@ header {
     margin: 5% auto; 
     padding: 12px;
     border: 1px solid #888;
-    width: 80%; 
+    width: 70%; 
 
-    max-width: 550px;
+    /* max-width: 550px; */
 
     border-radius: 10px;
     overflow: hidden;
@@ -191,7 +194,10 @@ header {
     p {
         overflow: hidden;
         max-width: 550px;
+        margin-top: 0px;
+        margin-bottom: 15px;
         word-wrap: anywhere;
+        max-width: 85%;
     }
 
 }
@@ -218,6 +224,10 @@ header {
         input {
             margin-bottom: 1vh;
         }
+    }
+
+    .modal-content {
+        width: 90%;
     }
 
     .container ul {
