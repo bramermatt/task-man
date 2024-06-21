@@ -5,7 +5,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const completedList = document.getElementById('completed-list');
     const todoHeading = document.getElementById('todo-heading');
     const completedHeading = document.getElementById('completed-heading');
+    const modal = document.getElementById('taskModal');
+    const modalText = document.getElementById('modal-text');
+    const closeModal = document.getElementsByClassName('close')[0];
+    const modalCompleteBtn = document.getElementById('modal-complete-btn');
+    const modalDeleteBtn = document.getElementById('modal-delete-btn');
     let taskCount = 0;
+    let currentTaskElement = null;
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -20,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const textSpan = document.createElement('span');
         textSpan.textContent = `${taskCount}. ${todoText}`;
+        textSpan.classList.add('task-text');
         li.appendChild(textSpan);
 
         const completeCheckbox = document.createElement('button');
@@ -41,6 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
         li.appendChild(completeCheckbox);
         li.appendChild(deleteButton);
         todoList.appendChild(li);
+
+        textSpan.addEventListener('click', function() {
+            openModal(todoText, li, completeCheckbox);
+        });
 
         updateTaskNumbers();
     }
@@ -83,6 +94,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         updateHeadings();
     }
+
+    function openModal(text, taskElement, completeCheckbox) {
+        modalText.textContent = text;
+        modal.style.display = 'block';
+        currentTaskElement = taskElement;
+
+        modalCompleteBtn.onclick = function() {
+            handleComplete(currentTaskElement, completeCheckbox);
+            modal.style.display = 'none';
+        };
+
+        modalDeleteBtn.onclick = function() {
+            handleDelete(currentTaskElement);
+            modal.style.display = 'none';
+        };
+    }
+
+    closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
 
     // Initial call to set headings visibility
     updateHeadings();

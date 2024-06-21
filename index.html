@@ -25,9 +25,10 @@
 
     <div class="container">
         <h1>To-Do List</h1>
+        
         <form id="todo-form">
             <input type="text" id="todo-input" placeholder="Enter a new task" required>
-            <button type="submit"><i class="fa fa-plus"></i></button>
+            <button type="submit">Add Task</button>
         </form>
         <div class="todo-container">
             <h2 id="todo-heading">To-Do</h2>
@@ -36,7 +37,25 @@
         <div class="completed-container">
             <h2 id="completed-heading">Completed</h2>
             <ul id="completed-list"></ul>
-    </div>
+        </div>
+    
+        <!-- The Modal -->
+        <div id="taskModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p id="modal-text"></p>
+                <div class="modal-buttons">
+                    <button id="modal-complete-btn" class="complete-checkbox">
+                        <i class="fas fa-check"></i>
+                    </button>
+                    <button id="modal-delete-btn" class="delete-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
     <script src="to-do.js"></script>
     
 </body>
