@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalDeleteBtn = document.getElementById('modal-delete-btn');
     let taskCount = 0;
     let currentTaskElement = null;
+    let currentCompleteCheckbox = null;
 
     loadTasks();
 
@@ -115,9 +116,16 @@ document.addEventListener('DOMContentLoaded', function() {
         modalText.textContent = text;
         modal.style.display = 'block';
         currentTaskElement = taskElement;
+        currentCompleteCheckbox = completeCheckbox;
+
+        if (taskElement.classList.contains('completed')) {
+            modalCompleteBtn.style.display = 'none';
+        } else {
+            modalCompleteBtn.style.display = 'inline-block';
+        }
 
         modalCompleteBtn.onclick = function() {
-            handleComplete(currentTaskElement, completeCheckbox);
+            handleComplete(currentTaskElement, currentCompleteCheckbox);
             modal.style.display = 'none';
         };
 
