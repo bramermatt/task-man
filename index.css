@@ -329,6 +329,9 @@ nav ul li a {
     .container {
         /* margin: 15px; */
         margin: 0;
+        
+        margin-bottom: 10vh;
+        
         box-shadow: none;
         max-width: -webkit-fill-available;
 
