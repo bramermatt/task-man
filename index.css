@@ -27,7 +27,14 @@ body.dark {
 
 header {
     padding: 15px;
-    border-bottom: thin solid grey;
+    display: flex;
+    gap: 1vw;
+    align-items: center;
+    /* border-bottom: thin solid grey; */
+
+    img {
+        max-height: 30px;
+    }
 
     h1 {
         margin: 0;
@@ -234,6 +241,11 @@ header {
         }
     }
 
+    header {
+        h1 {
+            display: none;
+        }
+    }
     
 
     .modal-content {
@@ -253,10 +265,21 @@ header {
         input[type="text"] {
             margin-right: 0;
         }
+
+        h1 {
+            display: none;
+        }
     }
 }
 
 @media screen and (prefers-color-scheme: light) {
+
+    header {
+        img {
+            filter:invert(1);
+        }
+    }
+
 
     .container {
 
@@ -268,7 +291,7 @@ header {
                 /* background-color: #18672a; */
                 /* background-color: rgb(70, 70, 70) !important; */
                 color: rgb(255, 255, 255) !important;
-                box-shadow: 2px 2px 5px black;
+                box-shadow: 2px 2px 5px rgb(103, 103, 103);
             }
 
             button:hover {
