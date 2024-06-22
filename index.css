@@ -79,7 +79,7 @@ header {
     }
 
     button {
-        margin-right: 1vw;
+        margin-right: .5vw;
     }
 
     
@@ -221,10 +221,18 @@ header {
     form {
         flex-direction: column;
 
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        padding: 12px;
+        width: 100%;
+
         input {
             margin-bottom: 1vh;
         }
     }
+
+    
 
     .modal-content {
         width: 90%;
@@ -239,6 +247,10 @@ header {
         margin: 0;
         box-shadow: none;
         max-width: -webkit-fill-available;
+
+        input[type="text"] {
+            margin-right: 0;
+        }
     }
 }
 

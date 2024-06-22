@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let taskCount = 0;
     let currentTaskElement = null;
 
+    loadTasks();
+
     form.addEventListener('submit', function(event) {
         event.preventDefault();
         addTodoItem(input.value);
@@ -20,14 +22,21 @@ document.addEventListener('DOMContentLoaded', function() {
         updateHeadings();
     });
 
-    function addTodoItem(todoText) {
+    function addTodoItem(todoText, completed = false) {
         taskCount++;
         const li = document.createElement('li');
 
         const textSpan = document.createElement('span');
         textSpan.textContent = `${taskCount}. ${todoText}`;
-        textSpan.classList.add('task-text');
         li.appendChild(textSpan);
+
+        const infoButton = document.createElement('button');
+        infoButton.classList.add('info-btn');
+        infoButton.innerHTML = '<i class="fas fa-info-circle"></i>';
+        infoButton.addEventListener('click', function(event) {
+            event.stopPropagation();
+            openModal(todoText, li, completeCheckbox);
+        });
 
         const completeCheckbox = document.createElement('button');
         completeCheckbox.classList.add('complete-checkbox');
@@ -45,15 +54,20 @@ document.addEventListener('DOMContentLoaded', function() {
             handleDelete(li);
         });
 
+        li.appendChild(infoButton);
         li.appendChild(completeCheckbox);
         li.appendChild(deleteButton);
-        todoList.appendChild(li);
 
-        textSpan.addEventListener('click', function() {
-            openModal(todoText, li, completeCheckbox);
-        });
+        if (completed) {
+            li.classList.add('completed');
+            completeCheckbox.style.display = 'none';
+            completedList.appendChild(li);
+        } else {
+            todoList.appendChild(li);
+        }
 
         updateTaskNumbers();
+        saveTasks();
     }
 
     function updateTaskNumbers() {
@@ -83,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
             completedList.appendChild(taskElement);
         }
         updateHeadings();
+        saveTasks();
     }
 
     function handleDelete(taskElement) {
@@ -93,6 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
             updateTaskNumbers();
         }
         updateHeadings();
+        saveTasks();
     }
 
     function openModal(text, taskElement, completeCheckbox) {
@@ -120,6 +136,31 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = 'none';
         }
     });
+
+    function saveTasks() {
+        const tasks = [];
+        todoList.querySelectorAll('li').forEach((li) => {
+            tasks.push({
+                text: li.querySelector('span').textContent.split('. ')[1],
+                completed: li.classList.contains('completed')
+            });
+        });
+        completedList.querySelectorAll('li').forEach((li) => {
+            tasks.push({
+                text: li.querySelector('span').textContent.split('. ')[1],
+                completed: true
+            });
+        });
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    function loadTasks() {
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.forEach((task) => {
+            addTodoItem(task.text, task.completed);
+        });
+        updateHeadings();
+    }
 
     // Initial call to set headings visibility
     updateHeadings();
