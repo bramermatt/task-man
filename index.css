@@ -136,7 +136,7 @@ header {
     }
 
     li:hover {
-        background-color: rgb(62, 62, 62);
+        /* background-color: rgb(62, 62, 62); */
         cursor: pointer;
     }
     
@@ -259,15 +259,16 @@ header {
 @media screen and (prefers-color-scheme: light) {
 
     .container {
-        li:hover {
-        background-color: #b1b1b1;
 
+        li {
+            box-shadow: 2px 2px 5px rgb(103, 103, 103);
         }
 
         button {
                 /* background-color: #18672a; */
                 /* background-color: rgb(70, 70, 70) !important; */
                 color: rgb(255, 255, 255) !important;
+                box-shadow: 2px 2px 5px black;
             }
 
             button:hover {
@@ -280,19 +281,19 @@ header {
 
 @media screen and (prefers-color-scheme: dark) {
     .modal-content {
-        background-color: darkslategrey;
+        background-color: #3c3c3c;
+        border: none !important;
+        box-shadow: 2px 2px 5px black;
     }
 
     .container {
 
         li {
             background-color: #3c3c3c;
+            border: none !important;
+            box-shadow: 2px 2px 5px black;
         }
 
-        li:hover {
-        background-color: #232323;
-
-        }
 
 
 
@@ -300,6 +301,8 @@ header {
             /* background-color: #18672a; */
             background-color: white !important;
             color: black !important;
+
+            box-shadow: 2px 2px 5px black;
         }
 
         button:hover {
