@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const infoButton = document.createElement('button');
         infoButton.classList.add('info-btn');
-        infoButton.innerHTML = '<i class="fas fa-info-circle"></i>';
+        infoButton.innerHTML = '<i class="fas fa-info-circle" style="color: darkSlateGrey"></i>';
         infoButton.addEventListener('click', function(event) {
             event.stopPropagation();
             openModal(todoText, li, completeCheckbox);
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('delete-btn');
-        deleteButton.innerHTML = '<i class="fas fa-times"></i>';
+        deleteButton.innerHTML = '<i class="fas fa-trash" style="color: red;"></i>';
         deleteButton.addEventListener('click', function(event) {
             event.stopPropagation();
             handleDelete(li);

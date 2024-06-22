@@ -153,7 +153,8 @@ header {
         }
 
         button {
-            background-color: #5a5a5a;
+            background-color: #1f1f1f;
+            color: #1f1f1f !important;
             text-decoration: none !important;
         }
 
@@ -256,13 +257,53 @@ header {
 
 @media screen and (prefers-color-scheme: light) {
 
-    .container li:hover {
+    .container {
+        li:hover {
         background-color: #b1b1b1;
-    }
+
+        }
+
+        button {
+                /* background-color: #18672a; */
+                /* background-color: rgb(70, 70, 70) !important; */
+                color: rgb(255, 255, 255) !important;
+            }
+
+            button:hover {
+                opacity: 60%;
+            }
+        }
+
+    
 }
 
 @media screen and (prefers-color-scheme: dark) {
     .modal-content {
         background-color: darkslategrey;
     }
+
+    .container {
+
+        li {
+            background-color: #3c3c3c;
+        }
+
+        li:hover {
+        background-color: #232323;
+
+        }
+
+
+
+        button {
+            /* background-color: #18672a; */
+            background-color: white !important;
+            color: black !important;
+        }
+
+        button:hover {
+            opacity: 60%;
+        }
+    }
+
 }
