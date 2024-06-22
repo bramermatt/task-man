@@ -355,6 +355,10 @@ nav ul li a {
 
 
     .container {
+        
+        #todo-form {
+            background-color: white;
+            }
 
         li {
             box-shadow: 2px 2px 5px rgb(103, 103, 103);
