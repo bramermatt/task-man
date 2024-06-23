@@ -25,7 +25,7 @@ body.dark {
     --background: dark;
 }
 
-header {
+/* header {
     padding: 15px;
     display: flex;
     gap: 1vw;
@@ -44,73 +44,155 @@ header {
     }
 }
 
-/* header {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #333;
-    color: white;
-}
-header img {
-    height: 40px;
-    margin-right: 20px;
-}
-header h1 {
-    margin: 0;
-}
 nav {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    color: white;
-    z-index: 1000;
-    transition: left 0.3s ease;
-}
-nav.open {
-    left: 0;
-}
-nav ul {
-    list-style: none;
-    padding: 20px;
-    margin: 0;
+    padding: 15px;
     display: flex;
     flex-direction: column;
+    width: max-content;
+    max-width: 175px;
+    gap: 1vw;
+
+    height: 93vh;
+    float: left;
+    box-shadow: 0px 0px 2px grey;
+    border-radius: 0px 10px 10px 0;
+
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 20px;
+        
+    }
+
+    li a:link, li a:visited {
+        color: #28a745;
+        text-decoration: none;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    li a:hover {
+        background-color: rgb(63, 63, 63);
+    }
+
+    .menu-icon {
+        display: flex;
+        gap: 1vw;
+        align-items: center;
+    }
+
+    .menu {
+        flex: 1;
+    }
+    
+
+    img {
+        max-height: 40px;
+    }
+
+    h1 {
+        margin: 0;
+        text-transform: uppercase;
+        font-size: medium;
+
+    }
+
+    
+} */
+
+header {
+    display: flex;
     align-items: center;
+    padding: 15px;
+
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    box-shadow: 0px 0px 2px grey;
+
+    img {
+        height: 40px;
+        margin-right: 20px;
+        cursor: pointer;
+    }
+
+    h1 {
+        margin: 0;
+        text-transform: uppercase;
+        font-size: medium;
+    }
+
+
 }
-nav ul li {
-    margin: 20px 0;
-}
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 24px;
-}
-.menu-btn {
+
+
+.close-icon {
     display: none;
     background-color: transparent;
     border: none;
     color: white;
     font-size: 24px;
     cursor: pointer;
-}
-.close-btn {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
+    top: 15px;
+    right: 15px;
 }
-@media (max-width: 768px) {
-    .menu-btn {
-        display: block;
+
+nav {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    max-width: 175px;
+    margin-top: 20px;
+    gap: 1vw;
+    height: 85vh;
+    float: left;
+    box-shadow: 0px 0px 2px grey;
+    border-radius: 0px 10px 10px 0;
+
+    position: sticky;
+    top: 20px;
+    z-index: 1;
+
+    ul {
+        list-style-type: none;
+        padding: 0;
     }
-} */
+
+    li {
+        margin-bottom: 30px;
+        font-size: large;
+    }
+
+    li a {
+        color: #28a745;
+        text-decoration: none;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    li a:hover {
+        background-color: rgb(63, 63, 63);
+    }
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu.open {
+    display: flex;
+}
+
+
+
 
 .container {
     padding: 15px;
@@ -125,15 +207,19 @@ nav ul li a {
     
     margin-bottom: 10vh;
 
+
     h1 {
         margin: 0;
         margin-bottom: 15px;
         border-bottom: 2px solid;
     }
 
+    
+
     form {
         display: flex;
-        margin-bottom: 20px;
+        /* margin-bottom: 20px; */
+        /* padding-bottom: 20px; */
     }
     
     input[type="text"] {
@@ -220,15 +306,13 @@ nav ul li a {
     li.completed {
         text-decoration: line-through;
 
-        transition: .3s ease-in-out;
-
         color: #5a5a5a;
         background-color: #363636;
         /* margin-top: 5vh; */
 
-        span {
+        /* span {
             transition: .3s ease-in-out;
-        }
+        } */
 
         button {
             background-color: #1f1f1f;
@@ -247,8 +331,8 @@ nav ul li a {
 .modal {
     display: none; 
     position: fixed; 
-    z-index: 1; 
-    padding-top: 60px; 
+    z-index: 50; 
+    /* padding-top: 60px;  */
     left: 0;
     top: 0;
     width: 100%; 
@@ -277,22 +361,108 @@ nav ul li a {
         margin-bottom: 15px;
         word-wrap: anywhere;
         max-width: 85%;
+        line-height: 1.5em;
+    }
+
+    img {
+        max-height: 50vh;
+        border-radius: 10px;
+        object-fit: cover;
+        max-width: 100%;
     }
 
 }
 
 
-.close {
+.close, .close-btn {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
+    
+    position: fixed;
+    right: 40px;
+
 }
-.close:hover,
-.close:focus {
+.close:hover, .close-btn:hover,
+.close:focus, .close-btn:hover {
     color: black;
+
+    color: white;
+
     text-decoration: none;
     cursor: pointer;
+}
+
+
+
+
+
+
+
+@media screen and (max-width: 950px) {
+    .close-icon {
+        display: block;
+    }
+
+    header {
+        box-shadow: none;
+
+        
+        img:hover {
+            opacity: 60%;
+        }
+
+        
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        transition: left 0.3s ease;
+        flex-direction: column;
+        box-shadow: none;
+        border-radius: 0;
+        margin-top: 0;
+
+        
+
+        ul {
+            flex-direction: column;
+            margin-top: 80px;
+            font-size: x-large;
+            text-align: center;
+        }
+
+        li {
+            padding-bottom: 20px;
+            border-bottom: thin solid white;
+            font-size: x-large;
+        }
+
+        .menu {
+            
+        }
+
+
+    }
+
+    nav.open {
+        left: 0;
+        height: 100%;
+        max-width: 100%;
+    }
+
+    .modal-content {
+        padding-top: 60px;
+    }
+
+
 }
 
 @media screen and (max-width: 580px) {
@@ -308,6 +478,12 @@ nav ul li a {
 
         input {
             margin-bottom: 1vh;
+        }
+    }
+
+    #report-modal {
+        form {
+            position: relative;
         }
     }
 
@@ -335,6 +511,11 @@ nav ul li a {
         box-shadow: none;
         max-width: -webkit-fill-available;
 
+        form {
+            padding-top: 20px;
+            padding-bottom: 30px;
+        }
+
         input[type="text"] {
             margin-right: 0;
         }
@@ -347,7 +528,21 @@ nav ul li a {
 
 @media screen and (prefers-color-scheme: light) {
 
-    header {
+    header{
+        background-color: white;
+
+        img {
+            filter:invert(1);
+        }
+
+
+    }
+
+    nav {
+        li a:hover {
+            background-color: #3f3f3f;
+        }
+
         img {
             filter:invert(1);
         }
@@ -361,20 +556,22 @@ nav ul li a {
             }
 
         li {
-            box-shadow: 2px 2px 5px rgb(103, 103, 103);
+            /* box-shadow: 0px 0px 5px rgb(103, 103, 103); */
         }
 
         button {
                 /* background-color: #18672a; */
                 /* background-color: rgb(70, 70, 70) !important; */
                 color: rgb(255, 255, 255) !important;
-                box-shadow: 2px 2px 5px rgb(103, 103, 103);
+                /* box-shadow: 0px 0px 5px rgb(103, 103, 103); */
             }
 
             button:hover {
                 opacity: 60%;
             }
         }
+
+
 
     
 }
@@ -386,7 +583,15 @@ nav ul li a {
         box-shadow: 2px 2px 5px black;
     }
 
+    header {
+        background-color: rgb(0, 0, 0, 0.9);
+    }
+
     .container {
+
+        #todo-form {
+            background-color: rgb(0, 0, 0, 0.9);
+            }
 
         li {
             background-color: #3c3c3c;
@@ -394,9 +599,13 @@ nav ul li a {
             box-shadow: 2px 2px 5px black;
         }
 
-        li.completed button {
-            background-color: rgb(40,40,40);
+        li.completed button, .modal-content.completed button {
+            background-color: rgb(40,40,40) !important;
             }
+
+        li.completed {
+            background-color: #0f0f0f !important;
+        }
                 
 
 
@@ -413,4 +622,13 @@ nav ul li a {
         }
     }
 
+}
+
+@media screen and (min-width: 950px) {
+    header {
+        background: none !important;
+        box-shadow: none;
+        position: relative;
+        top: 0;
+    }
 }

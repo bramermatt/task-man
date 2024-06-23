@@ -16,31 +16,93 @@
 </head>
 <body>
 
+
     <!-- <header>
-        <img src="task-man-fav.png" alt="Task-Man Logo">
+        <img src="task-man-fav.png" alt="">
         <h1>Task-Man</h1>
-        <button class="menu-btn"><i class="fas fa-bars"></i></button>
-    </header>
-    <n6yav id="menu">
-        <button class="close-btn"><i class="fas fa-times"></i></button>
-        <ul>
-            <li><a href="#about" id="about-link">About</a></li>
-            <li><a href="https://github.com" target="_blank">Code/Github</a></li>
-        </ul>
-    </nav>
-    <div id="content">
-        <section id="about" style="display:none;">
-            <h2>About</h2>
-            <p>This is the Task-Man application. Manage your tasks efficiently!</p>
-        </section>
-    </div> -->
+    </header> -->
+
 
 
     <header>
-        <img src="task-man-fav.png" alt="">
+        <img src="task-man-fav.png" alt="Task-Man Logo" id="menu-icon">
         <h1>Task-Man</h1>
-
     </header>
+    <nav id="nav-menu">
+        <button class="close-icon" id="close-icon"><i class="fas fa-times"></i></button>
+        <ul class="menu">
+            <li><a href="#about" id="about-link">About</a></li>
+            <li><a href="https://github.com/bramermatt/task-man" target="_blank">GitHub</a></li>
+            <!-- <li><a href="#report" id="report-link">Report an Issue</a></li> -->
+        </ul>
+    </nav>
+
+
+        <!-- HTML for the About modal -->
+        <div id="aboutModal" class="modal">
+            <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>About Task-Man</h2>
+            <p>
+                Task-Man is a streamlined to-do list application designed to help you manage your tasks efficiently. With Task-Man, you can easily add new tasks and organize them as either to-do or completed items. Marking tasks as completed moves them to a dedicated section, helping you keep track of your progress. You can click on tasks to view more details in a modal, providing an expanded view for better readability and management. Task-Man also supports persistent storage by saving your tasks to cookies, ensuring they remain until you decide to delete them. 
+                
+            </p>
+            
+            <p>The user-friendly interface offers a clean and intuitive experience with mobile responsiveness, making task management simple on any device. Task-Man is built using HTML, CSS, and JavaScript, with a focus on simplicity and functionality, to keep your productivity high and your tasks in order.
+            </p>
+
+            <p>
+                If you have any feedback or suggestions, please feel free to contact us at <a href="mailto:m.bramer1096@gmail.com?subject=Task-Man To-Do List App Suggestion!" target="_blank">m.bramer1096@gmail.com</a>.
+            </p>
+
+            <img src="matt-profile.jpeg" alt="">
+            <p>Developed by <a href="https://www.mattbramer.com" target="_blank">Matthew Bramer</a></p>
+
+            </div>
+        </div>
+
+        <!-- <div id="report-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+    
+                <div id="report-section" class="section">
+                    <h2>Report an Issue</h2>
+                    <form id="issueReportForm" action="report_issue.php" method="POST">
+                        <label for="name">Your Name:</label>
+                        <input type="text" id="name" name="name" required><br><br>
+                        
+                        <label for="email">Your Email:</label>
+                        <input type="email" id="email" name="email" required><br><br>
+                        
+                        <label for="issue">Issue Description:</label><br>
+                        <textarea id="issue" name="issue" rows="4" cols="50" required></textarea><br><br>
+                        
+                        <input type="submit" value="Submit">
+                    </div>
+            </div>
+        </div> -->
+
+
+        </nav>
+
+
+
+
+
+    <!-- <nav>
+        <div class="menu-icon">
+            <img src="task-man-fav.png" alt="">
+            <h1>Task-Man</h1>
+        </div>
+
+        <ul class="menu" id="menu">
+            <li><a href="">About</a></li>
+            <li><a href="">GitHub</a></li>
+
+            <li><a href="">Report an Issue</a></li>
+        </ul>
+
+    </nav> -->
 
 
 
@@ -80,6 +142,7 @@
         </div>
 
 
+    <script src="modal.js"></script>
     <script src="mobile-menu.js"></script>
     <script src="to-do.js"></script>
     
