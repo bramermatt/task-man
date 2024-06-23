@@ -524,6 +524,11 @@ nav {
             display: none;
         }
     }
+
+    header {
+        justify-content: space-between;
+    }
+
 }
 
 @media screen and (prefers-color-scheme: light) {
