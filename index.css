@@ -277,6 +277,10 @@ nav {
         text-overflow: ellipsis;
 
         box-shadow: 0px 0px 2px grey;
+
+        h2 {
+            display: none;
+        }
     }
     
     li span {
@@ -291,6 +295,8 @@ nav {
         /* margin: 10px; */
         word-wrap: anywhere;
         /* word-wrap: break-word; */
+
+
     }
     
     
@@ -369,6 +375,10 @@ nav {
         border-radius: 10px;
         object-fit: cover;
         max-width: 100%;
+    }
+
+    #modal-text h2 {
+        margin-top: 0;
     }
 
 }
