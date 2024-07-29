@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board</title>
+
+    
+    <link rel="shortcut icon" type="image/x-icon" href="table-columns-solid.svg">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="index.css">
+    <meta name="color-scheme" content="light dark"/>
+
+
+
+    <meta name="color-scheme" content="light dark"/>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+</head>
+<body>
+    <style>
+        /* body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            overflow: hidden;
+        } */
+
+        .kanban-board {
+            display: flex;
+            justify-content: space-around;
+            gap: 2vw;
+            /* width: 90%; */
+            height: 90vh;
+
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .column {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 0px 15px;
+            width: 30%;
+            max-height: 100%;
+            overflow-y: auto; 
+        }
+
+        h2 {
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            margin: 0;
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .task {
+            background-color: #e3e3e3;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: grab;
+            text-wrap: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #addTaskBtn, #clearTasksBtn {
+            font-size: 5vh; 
+            cursor: pointer; 
+            height: min-content; 
+            width: max-content;
+            border-radius: 10px;
+        }
+
+
+        .buttons {
+            display: flex;
+            flex-direction: row;
+            gap: 1vw;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+
+            
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            body {
+                background-color: rgba(0, 0, 0, 0.9);
+            }
+            
+            .column {
+                background-color: rgba(22, 22, 22, 0.9);
+                border: none;
+            }
+
+            h2 {
+                background-color: rgba(22, 22, 22);
+                border-bottom: none !important;
+            }
+
+            .task, #addTaskBtn, #clearTasksBtn {
+                background-color: rgba(46, 46, 46, 0.9);
+                border: none;
+            }
+
+            .task:hover, #addTaskBtn:hover, #clearTasksBtn:hover {
+                background-color: grey;
+            }
+        }
+
+        @media screen and (prefers-color-scheme: light) {
+            .column h2 {
+                border-bottom: none;
+            }
+
+            .task, #addTaskBtn, #clearTasksBtn {
+                background-color: rgba(228, 228, 228, 0.9);
+                border: none;
+            }
+
+            #addTaskBtn, #clearTasksBtn {
+                box-shadow: none;
+            }
+
+            .task:hover, #addTaskBtn:hover, #clearTasksBtn:hover {
+                background-color: rgb(190, 190, 190);
+            }
+        }
+
+
+
+        @media screen and (max-width: 700px) {
+            .kanban-board {
+                /* width: 95%; */
+                flex-direction: column;
+                justify-content: start;
+                gap: 3vh;
+            }
+
+            .column {
+                max-width: 100%;
+                width: -webkit-fill-available;
+                height: 100vh !important;
+            }
+        }
+    </style>
+
+
+<header>
+
+    <i class="fa-solid fa-bars" id="menu-icon"></i>
+
+    <div class="header-title">
+        <a href="index.html"><img src="list-check-solid.svg" alt="Task-Man Logo"></a>
+        <a href="kanban.html"><img src="table-columns-solid.svg" alt=""></a>
+        <h1>Task-Man</h1>
+    </div>
+
+
+</header>
+
+
+<nav id="nav-menu">
+    <button class="close-icon" id="close-icon"><i class="fas fa-times"></i></button>
+    <ul class="menu">
+        <li><a href="index.html">Task View</a></li>
+        <li><a href="kanban.html">Kanban View</a></li>
+        <li><a href="#about" id="about-link">About</a></li>
+        <li><a href="https://github.com/bramermatt/task-man" target="_blank">GitHub</a></li>
+        <li><a href="mailto:m.bramer1096@gmail.com?subject=Task-Man To-Do List App Suggestion!" target="_blank">Report an Issue</a></li>
+        <!-- <li><a href="#report" id="report-link">Report an Issue</a></li> -->
+    </ul>
+</nav>
+
+
+    <!-- HTML for the About modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>About Task-Man</h2>
+        <p>
+            Task-Man is a streamlined to-do list application designed to help you manage your tasks efficiently. With Task-Man, you can easily add new tasks and organize them as either to-do or completed items. Marking tasks as completed moves them to a dedicated section, helping you keep track of your progress. You can click on tasks to view more details in a modal, providing an expanded view for better readability and management. Task-Man also supports persistent storage by saving your tasks to cookies, ensuring they remain until you decide to delete them. 
+            
+        </p>
+        
+        <p>The user-friendly interface offers a clean and intuitive experience with mobile responsiveness, making task management simple on any device. Task-Man is built using HTML, CSS, and JavaScript, with a focus on simplicity and functionality, to keep your productivity high and your tasks in order.
+        </p>
+
+        <p>
+            If you have any feedback or suggestions, please feel free to contact us at <a href="mailto:m.bramer1096@gmail.com?subject=Task-Man To-Do List App Suggestion!" target="_blank">m.bramer1096@gmail.com</a>.
+        </p>
+
+        <img src="matt-profile.jpeg" alt="">
+        <p>Developed by <a href="https://www.mattbramer.com" target="_blank">Matthew Bramer</a></p>
+
+        </div>
+    </div>
+
+    <!-- <div id="report-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+
+            <div id="report-section" class="section">
+                <h2>Report an Issue</h2>
+                <form id="issueReportForm" action="report_issue.php" method="POST">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required><br><br>
+                    
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" required><br><br>
+                    
+                    <label for="issue">Issue Description:</label><br>
+                    <textarea id="issue" name="issue" rows="4" cols="50" required></textarea><br><br>
+                    
+                    <input type="submit" value="Submit">
+                </div>
+        </div>
+    </div> -->
+
+    </nav>
+
+
+<!-- <nav>
+    <div class="menu-icon">
+        <img src="task-man-fav.png" alt="">
+        <h1>Task-Man</h1>
+    </div>
+
+    <ul class="menu" id="menu">
+        <li><a href="">About</a></li>
+        <li><a href="">GitHub</a></li>
+
+        <li><a href="">Report an Issue</a></li>
+    </ul>
+
+</nav> -->
+
+
+
+<div class="container">
+    <div class="kanban-board">
+        <div class="column" id="todo">
+            <h2>To Do</h2>
+        </div>
+        <div class="column" id="in-progress">
+            <h2>In Progress</h2>
+        </div>
+        <div class="column" id="done">
+            <h2>Done</h2>
+        </div>
+
+        <div class="buttons">
+            <button id="addTaskBtn">+</button>
+            <button id="clearTasksBtn">x</button>
+        </div>
+
+
+
+    </div>
+
+    <!-- <form id="todo-form" style="margin-top: 5vh;">
+        <input type="text" id="todo-input" placeholder="Enter a new task" required>
+        <button type="submit">Add Task</button>
+    </form> -->
+
+</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addTaskBtn = document.getElementById('addTaskBtn');
+            const clearTasksBtn = document.getElementById('clearTasksBtn');
+            const columns = document.querySelectorAll('.column');
+            const kanbanBoard = document.querySelector('.kanban-board');
+            let currentColumnIndex = 0;
+
+            // Function to load tasks from localStorage
+            const loadTasks = () => {
+                columns.forEach(column => {
+                    const columnId = column.id;
+                    const tasks = JSON.parse(localStorage.getItem(columnId)) || [];
+                    tasks.forEach(taskText => {
+                        const newTask = document.createElement('div');
+                        newTask.classList.add('task');
+                        newTask.setAttribute('draggable', 'true');
+                        newTask.textContent = taskText;
+                        column.appendChild(newTask);
+                    });
+                });
+            };
+
+            // Function to save tasks to localStorage
+            const saveTasks = () => {
+                columns.forEach(column => {
+                    const columnId = column.id;
+                    const tasks = [];
+                    column.querySelectorAll('.task').forEach(task => {
+                        tasks.push(task.textContent);
+                    });
+                    localStorage.setItem(columnId, JSON.stringify(tasks));
+                });
+            };
+
+            // Function to clear all tasks
+            const clearAllTasks = () => {
+                columns.forEach(column => {
+                    column.innerHTML = '<h2>' + column.querySelector('h2').textContent + '</h2>';
+                    localStorage.removeItem(column.id);
+                });
+            };
+
+            // Drag and Drop functionality
+            document.addEventListener('dragstart', (e) => {
+                if (e.target.classList.contains('task')) {
+                    e.dataTransfer.setData('text/plain', e.target.textContent);
+                    e.target.classList.add('dragging');
+                }
+            });
+
+            document.addEventListener('dragend', (e) => {
+                if (e.target.classList.contains('task')) {
+                    e.target.classList.remove('dragging');
+                    saveTasks();
+                }
+            });
+
+            columns.forEach((column) => {
+                column.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    const draggingTask = document.querySelector('.dragging');
+                    column.appendChild(draggingTask);
+                });
+            });
+
+            // Add new task
+            const addNewTask = () => {
+                const taskText = prompt('Enter task description:');
+                if (taskText) {
+                    const newTask = document.createElement('div');
+                    newTask.classList.add('task');
+                    newTask.setAttribute('draggable', 'true');
+                    newTask.textContent = taskText;
+                    document.getElementById('todo').appendChild(newTask);
+                    saveTasks();
+                }
+            };
+
+            addTaskBtn.addEventListener('click', addNewTask);
+
+            // Add event listener for clearing all tasks
+            clearTasksBtn.addEventListener('click', clearAllTasks);
+
+            // Add keyboard hotkey for adding a new task (N key)
+            document.addEventListener('keydown', (e) => {
+                if (e.key.toLowerCase() === 'n') {
+                    addNewTask();
+                }
+            });
+
+            // Load tasks from localStorage on page load
+            loadTasks();
+
+            // Swipe functionality
+            const hammer = new Hammer(kanbanBoard);
+
+            hammer.on('swipeleft', () => {
+                if (currentColumnIndex < columns.length - 1) {
+                    currentColumnIndex++;
+                    kanbanBoard.style.transform = `translateX(-${currentColumnIndex * 33.33}%)`;
+                }
+            });
+
+            hammer.on('swiperight', () => {
+                if (currentColumnIndex > 0) {
+                    currentColumnIndex--;
+                    kanbanBoard.style.transform = `translateX(-${currentColumnIndex * 33.33}%)`;
+                }
+            });
+        });
+    </script>
+
+<script src="modal.js"></script>
+<script src="mobile-menu.js"></script>
+<script src="to-do.js"></script>
+</body>
+</html>

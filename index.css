@@ -212,7 +212,7 @@ nav {
 .container {
     padding: 15px;
     box-shadow: 0px 0px 2px grey;
-    max-width: 550px;
+    max-width: 1050px;
     font-size: large;
     /* margin: 15px; */
     margin: 0 auto;
@@ -420,7 +420,14 @@ nav {
 }
 
 
+@media screen and (max-width: 1500px) {
+            
 
+    .container {
+        max-width: 550px;
+    }
+
+}
 
 
 
@@ -562,7 +569,7 @@ nav {
         background-color: white;
 
         img {
-            filter:invert(1);
+            /* filter:invert(1); */
         }
 
 
