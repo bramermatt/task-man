@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const handleDragEnd = (e) => {
         if (e.target.classList.contains('task')) {
             e.target.classList.remove('dragging');
+            columns.forEach(column => column.classList.remove('drag-over'));
             saveTasks();
         }
     };
@@ -55,8 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const draggingTask = document.querySelector('.dragging');
         if (draggingTask) {
+            e.currentTarget.classList.add('drag-over');
             e.currentTarget.appendChild(draggingTask);
         }
+    };
+
+    const handleDragLeave = (e) => {
+        e.currentTarget.classList.remove('drag-over');
     };
 
     const handleTouchStart = (e) => {
@@ -79,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetColumn = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY).closest('.column');
             if (targetColumn) {
                 targetColumn.appendChild(draggingTask);
+                targetColumn.classList.remove('drag-over');
             }
             saveTasks();
         }
@@ -92,6 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
             draggingTask.style.position = 'absolute';
             draggingTask.style.left = `${touch.clientX - draggingTask.dataset.initialX}px`;
             draggingTask.style.top = `${touch.clientY - draggingTask.dataset.initialY}px`;
+
+            const targetColumn = document.elementFromPoint(touch.clientX, touch.clientY).closest('.column');
+            columns.forEach(column => column.classList.remove('drag-over'));
+            if (targetColumn) {
+                targetColumn.classList.add('drag-over');
+            }
         }
     };
 
@@ -99,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('dragend', handleDragEnd);
     columns.forEach(column => {
         column.addEventListener('dragover', handleDragOver);
+        column.addEventListener('dragleave', handleDragLeave);
         column.addEventListener('touchstart', handleTouchStart);
         column.addEventListener('touchend', handleTouchEnd);
         column.addEventListener('touchmove', handleTouchMove);
@@ -126,19 +140,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     loadTasks();
-
-    // const hammer = new Hammer(kanbanBoard);
-    // hammer.on('swipeleft', () => {
-    //     if (currentColumnIndex < columns.length - 1) {
-    //         currentColumnIndex++;
-    //         kanbanBoard.style.transform = `translateX(-${currentColumnIndex * 33.33}%)`;
-    //     }
-    // });
-
-    // hammer.on('swiperight', () => {
-    //     if (currentColumnIndex > 0) {
-    //         currentColumnIndex--;
-    //         kanbanBoard.style.transform = `translateX(-${currentColumnIndex * 33.33}%)`;
-    //     }
-    // });
 });
