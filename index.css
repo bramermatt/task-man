@@ -200,6 +200,7 @@ nav {
 .menu {
     display: flex;
     flex-direction: column;
+    
 }
 
 .menu.open {
@@ -211,7 +212,7 @@ nav {
 
 .container {
     padding: 15px;
-    box-shadow: 0px 0px 2px grey;
+    /* box-shadow: 0px 0px 2px grey; */
     max-width: 1050px;
     font-size: large;
     /* margin: 15px; */
@@ -227,15 +228,21 @@ nav {
         margin: 0;
         margin-bottom: 15px;
         border-bottom: 2px solid;
+
+        display: none;
     }
 
-    
 
     form {
         display: flex;
+
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
         /* margin-bottom: 20px; */
         /* padding-bottom: 20px; */
     }
+
     
     input[type="text"] {
         flex: 1;
@@ -348,6 +355,8 @@ nav {
 }
 
 
+
+
 /* Modal styling */
 .modal {
     display: none; 
@@ -405,10 +414,11 @@ nav {
     font-size: 28px;
     font-weight: bold;
     
-    position: fixed;
-    right: 40px;
+    position: relative;
+    right: 0px;
 
 }
+
 .close:hover, .close-btn:hover,
 .close:focus, .close-btn:hover {
     color: black;
@@ -429,26 +439,7 @@ nav {
     gap: 2vw;
 }
 
-@media screen and (max-width: 1500px) {
-            
-
-
-
-    .close-icon {
-        display: block;
-    }
-
-    header {
-        box-shadow: none;
-
-        
-        i:hover {
-            opacity: 60%;
-        }
-
-        
-    }
-
+@media screen and (min-width: 200px) {
     nav {
         position: fixed;
         top: 0;
@@ -488,8 +479,33 @@ nav {
     nav.open {
         left: 0;
         height: 100%;
-        max-width: 100%;
+        max-width: 20%;
     }
+
+    .close-icon {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 1500px) {
+            
+
+
+
+
+
+    header {
+        box-shadow: none;
+
+        
+        i:hover {
+            opacity: 60%;
+        }
+
+        
+    }
+
+
 
     .modal-content {
         padding-top: 60px;
@@ -500,14 +516,21 @@ nav {
 }
 
 
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 680px) {
     
+
+    nav.open {
+        left: 0;
+        height: 100%;
+        max-width: 100%;
+    }
+
     form {
         flex-direction: column;
 
         position: fixed;
-        bottom: 0;
-        right: 0;
+        bottom: 0 !important;
+        right: 0 !important;
         padding: 12px;
         width: 100%;
 
@@ -577,6 +600,15 @@ nav {
 
 
     }
+
+    .close:hover, .close-btn:hover,
+.close:focus, .close-btn:hover {
+    color: black;
+
+    text-decoration: none;
+    cursor: pointer;
+}
+
 
     nav {
         li a:hover {
