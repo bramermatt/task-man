@@ -32,6 +32,8 @@
             overflow: hidden;
         } */
 
+
+
         .kanban-board {
             display: flex;
             justify-content: space-around;
@@ -41,6 +43,8 @@
 
             max-height: 70vh;
             overflow-y: auto;
+
+
         }
 
         .column {
@@ -74,7 +78,7 @@
         }
 
         #addTaskBtn, #clearTasksBtn {
-            font-size: 5vh; 
+            font-size: 3vh; 
             cursor: pointer; 
             height: min-content; 
             width: max-content;
@@ -85,7 +89,7 @@
         .buttons {
             display: flex;
             flex-direction: row;
-            gap: 1vw;
+            /* gap: 1vw; */
             position: fixed;
             bottom: 30px;
             right: 30px;
@@ -151,6 +155,10 @@
                 max-width: 100%;
                 width: -webkit-fill-available;
                 height: 100vh !important;
+            }
+
+            .buttons {
+                gap: 1vw;
             }
         }
     </style>
@@ -260,8 +268,8 @@
         </div>
 
         <div class="buttons">
-            <button id="addTaskBtn">+</button>
-            <button id="clearTasksBtn">x</button>
+            <button id="addTaskBtn"><i class="fa-solid fa-plus"></i></button>
+            <button id="clearTasksBtn"><i class="fa-solid fa-trash"></i></button>
         </div>
 
 
@@ -275,118 +283,9 @@
 
 </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const addTaskBtn = document.getElementById('addTaskBtn');
-            const clearTasksBtn = document.getElementById('clearTasksBtn');
-            const columns = document.querySelectorAll('.column');
-            const kanbanBoard = document.querySelector('.kanban-board');
-            let currentColumnIndex = 0;
+<script src="kanban.js"></script>
 
-            // Function to load tasks from localStorage
-            const loadTasks = () => {
-                columns.forEach(column => {
-                    const columnId = column.id;
-                    const tasks = JSON.parse(localStorage.getItem(columnId)) || [];
-                    tasks.forEach(taskText => {
-                        const newTask = document.createElement('div');
-                        newTask.classList.add('task');
-                        newTask.setAttribute('draggable', 'true');
-                        newTask.textContent = taskText;
-                        column.appendChild(newTask);
-                    });
-                });
-            };
 
-            // Function to save tasks to localStorage
-            const saveTasks = () => {
-                columns.forEach(column => {
-                    const columnId = column.id;
-                    const tasks = [];
-                    column.querySelectorAll('.task').forEach(task => {
-                        tasks.push(task.textContent);
-                    });
-                    localStorage.setItem(columnId, JSON.stringify(tasks));
-                });
-            };
-
-            // Function to clear all tasks
-            const clearAllTasks = () => {
-                columns.forEach(column => {
-                    column.innerHTML = '<h2>' + column.querySelector('h2').textContent + '</h2>';
-                    localStorage.removeItem(column.id);
-                });
-            };
-
-            // Drag and Drop functionality
-            document.addEventListener('dragstart', (e) => {
-                if (e.target.classList.contains('task')) {
-                    e.dataTransfer.setData('text/plain', e.target.textContent);
-                    e.target.classList.add('dragging');
-                }
-            });
-
-            document.addEventListener('dragend', (e) => {
-                if (e.target.classList.contains('task')) {
-                    e.target.classList.remove('dragging');
-                    saveTasks();
-                }
-            });
-
-            columns.forEach((column) => {
-                column.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    const draggingTask = document.querySelector('.dragging');
-                    column.appendChild(draggingTask);
-                });
-            });
-
-            // Add new task
-            const addNewTask = () => {
-                const taskText = prompt('Enter task description:');
-                if (taskText) {
-                    const newTask = document.createElement('div');
-                    newTask.classList.add('task');
-                    newTask.setAttribute('draggable', 'true');
-                    newTask.textContent = taskText;
-                    document.getElementById('todo').appendChild(newTask);
-                    saveTasks();
-                }
-            };
-
-            addTaskBtn.addEventListener('click', addNewTask);
-
-            // Add event listener for clearing all tasks
-            clearTasksBtn.addEventListener('click', clearAllTasks);
-
-            // Add keyboard hotkey for adding a new task (N key)
-            document.addEventListener('keydown', (e) => {
-                if (e.key.toLowerCase() === 'n') {
-                    addNewTask();
-                }
-            });
-
-            // Load tasks from localStorage on page load
-            loadTasks();
-
-            // Swipe functionality
-            const hammer = new Hammer(kanbanBoard);
-
-            hammer.on('swipeleft', () => {
-                if (currentColumnIndex < columns.length - 1) {
-                    currentColumnIndex++;
-                    kanbanBoard.style.transform = `translateX(-${currentColumnIndex * 33.33}%)`;
-                }
-            });
-
-            hammer.on('swiperight', () => {
-                if (currentColumnIndex > 0) {
-                    currentColumnIndex--;
-                    kanbanBoard.style.transform = `translateX(-${currentColumnIndex * 33.33}%)`;
-                }
-            });
-        });
-    </script>
 
 <script src="modal.js"></script>
 <script src="mobile-menu.js"></script>
