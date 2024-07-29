@@ -141,7 +141,7 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 2vw;
+    gap: 1vw;
 }
 
 
@@ -522,6 +522,10 @@ nav {
 
 @media screen and (max-width: 680px) {
     
+
+    .header-title {
+        gap: 3vw;
+    }
 
     nav.open {
         left: 0;
