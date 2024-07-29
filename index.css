@@ -420,6 +420,15 @@ nav {
 }
 
 
+.not-active {
+    opacity: 50%;
+}
+
+.flex {
+    display: flex;
+    gap: 2vw;
+}
+
 @media screen and (max-width: 1500px) {
             
 

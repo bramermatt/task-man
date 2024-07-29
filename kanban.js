@@ -62,17 +62,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const handleTouchStart = (e) => {
         if (e.target.classList.contains('task')) {
             e.target.classList.add('dragging');
+            const touch = e.touches[0];
+            e.target.dataset.initialX = touch.clientX - e.target.offsetLeft;
+            e.target.dataset.initialY = touch.clientY - e.target.offsetTop;
         }
     };
 
     const handleTouchEnd = (e) => {
         const draggingTask = document.querySelector('.dragging');
         if (draggingTask) {
+            draggingTask.style.position = '';
+            draggingTask.style.left = '';
+            draggingTask.style.top = '';
+            draggingTask.classList.remove('dragging');
+
             const targetColumn = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
             if (targetColumn && targetColumn.classList.contains('column')) {
                 targetColumn.appendChild(draggingTask);
             }
-            draggingTask.classList.remove('dragging');
             saveTasks();
         }
     };
@@ -83,8 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (draggingTask) {
             const touch = e.touches[0];
             draggingTask.style.position = 'absolute';
-            draggingTask.style.left = `${touch.clientX}px`;
-            draggingTask.style.top = `${touch.clientY}px`;
+            draggingTask.style.left = `${touch.clientX - draggingTask.dataset.initialX}px`;
+            draggingTask.style.top = `${touch.clientY - draggingTask.dataset.initialY}px`;
         }
     };
 
@@ -98,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const addNewTask = () => {
-        const taskText = prompt('Enter task description:');
+        const taskText = prompt('Enter task:');
         if (taskText) {
             const newTask = document.createElement('div');
             newTask.classList.add('task');
@@ -120,18 +127,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadTasks();
 
-    const hammer = new Hammer(kanbanBoard);
-    hammer.on('swipeleft', () => {
-        if (currentColumnIndex < columns.length - 1) {
-            currentColumnIndex++;
-            kanbanBoard.style.transform = `translateX(-${currentColumnIndex * 33.33}%)`;
-        }
-    });
+    // const hammer = new Hammer(kanbanBoard);
+    // hammer.on('swipeleft', () => {
+    //     if (currentColumnIndex < columns.length - 1) {
+    //         currentColumnIndex++;
+    //         kanbanBoard.style.transform = `translateX(-${currentColumnIndex * 33.33}%)`;
+    //     }
+    // });
 
-    hammer.on('swiperight', () => {
-        if (currentColumnIndex > 0) {
-            currentColumnIndex--;
-            kanbanBoard.style.transform = `translateX(-${currentColumnIndex * 33.33}%)`;
-        }
-    });
+    // hammer.on('swiperight', () => {
+    //     if (currentColumnIndex > 0) {
+    //         currentColumnIndex--;
+    //         kanbanBoard.style.transform = `translateX(-${currentColumnIndex * 33.33}%)`;
+    //     }
+    // });
 });
