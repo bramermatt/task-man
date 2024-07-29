@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const addTaskBtn = document.getElementById('addTaskBtn');
     const clearTasksBtn = document.getElementById('clearTasksBtn');
     const columns = document.querySelectorAll('.column');
-    const kanbanBoard = document.querySelector('.kanban-board');
-    let currentColumnIndex = 0;
 
     const loadTasks = () => {
         columns.forEach(column => {
@@ -57,12 +55,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const draggingTask = document.querySelector('.dragging');
         if (draggingTask) {
             e.currentTarget.classList.add('drag-over');
-            e.currentTarget.appendChild(draggingTask);
         }
     };
 
     const handleDragLeave = (e) => {
         e.currentTarget.classList.remove('drag-over');
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const draggingTask = document.querySelector('.dragging');
+        if (draggingTask) {
+            e.currentTarget.classList.remove('drag-over');
+            e.currentTarget.appendChild(draggingTask);
+            saveTasks();
+        }
     };
 
     const handleTouchStart = (e) => {
@@ -82,7 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
             draggingTask.style.top = '';
             draggingTask.classList.remove('dragging');
 
-            const targetColumn = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY).closest('.column');
+            const touch = e.changedTouches[0];
+            const targetColumn = document.elementFromPoint(touch.clientX, touch.clientY).closest('.column');
             if (targetColumn) {
                 targetColumn.appendChild(draggingTask);
                 targetColumn.classList.remove('drag-over');
@@ -113,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     columns.forEach(column => {
         column.addEventListener('dragover', handleDragOver);
         column.addEventListener('dragleave', handleDragLeave);
+        column.addEventListener('drop', handleDrop);
         column.addEventListener('touchstart', handleTouchStart);
         column.addEventListener('touchend', handleTouchEnd);
         column.addEventListener('touchmove', handleTouchMove);
