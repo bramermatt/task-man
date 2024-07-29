@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
             draggingTask.style.top = '';
             draggingTask.classList.remove('dragging');
 
-            const targetColumn = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-            if (targetColumn && targetColumn.classList.contains('column')) {
+            const targetColumn = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY).closest('.column');
+            if (targetColumn) {
                 targetColumn.appendChild(draggingTask);
             }
             saveTasks();
