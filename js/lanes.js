@@ -217,9 +217,9 @@
     }
 
     function updateStats() {
-      totalTasksEl.textContent = `${tasks.length} tasks`;
-      const completed = tasks.filter(t => t.lane === "achieved").length;
-      completedTasksEl.textContent = `${completed} achieved`;
+      totalTasksEl.textContent = `${tasks.length}`;
+      const completed = tasks.filter(t => t.lane === "").length;
+      completedTasksEl.textContent = `${completed}`;
     }
 
     function updateLaneCounts() {
