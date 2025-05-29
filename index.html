@@ -15,7 +15,7 @@
     .priority-low { border-left: 3px solid #059669; }
   </style>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col">
+<body class="bg-gray-50 min-h-screen flex flex-col cursor-default">
   <!-- Header -->
 <header class="bg-white border-b border-gray-200 p-4 shadow-sm sticky top-0 z-30">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
@@ -59,40 +59,36 @@
 <!-- Lane Template -->
 <template id="laneTemplate">
 <section
-    class="lane shrink-0 snap-center w-[calc(100vw-2rem)] sm:w-auto sm:min-w-[300px] bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col gap-3"
-    style="min-height: 100dvh;"
-    draggable="true">
-    <header class="flex justify-between items-center pb-2 border-b border-gray-100 sticky top-0 bg-white z-20">
-      <div class="flex items-center gap-2">
-        <!-- Drag Handle -->
-        <!-- <span class="lane-drag-handle cursor-move text-gray-400" title="Drag lane">⠿</span> -->
-        <h3 contenteditable="true" class="font-medium text-gray-900 sticky left-0 bg-white z-10 hover:bg-yellow-100 focus:bg-yellow-100 cursor-text transition-colors"></h3>
-      </div>
-      <span class="task-count bg-gray-100 px-2 py-1 rounded text-xs font-medium text-gray-600">0</span>
-    </header>
-    <div class="tasklist flex-1 flex flex-col gap-2 min-h-[200px] overflow-y-auto" style="max-height: calc(100dvh - 60px);" ondragover="event.preventDefault()"></div>
-  </section>
+  class="lane shrink-0 snap-center w-[calc(100vw-2rem)] sm:w-[320px] bg-gray-50 rounded-md shadow border border-gray-300 p-3 flex flex-col gap-3"
+  style="min-height: 100dvh;"
+  draggable="true">
+  <header class="flex justify-between items-center pb-2 border-b border-gray-200 sticky top-0 bg-gray-50 z-20">
+    <h3 contenteditable="true" class="text-sm font-semibold text-gray-800 tracking-wide uppercase"></h3>
+    <span class="task-count text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full font-semibold"></span>
+  </header>
+  <div class="tasklist flex-1 flex flex-col gap-2 overflow-y-auto" style="max-height: calc(100dvh - 60px);" ondragover="event.preventDefault()"></div>
+</section>
+
 </template>
 
   <!-- Task Template -->
   <template id="taskTemplate">
-    <article draggable="true" class="task cursor-grab active:cursor-grabbing bg-white rounded-lg border border-gray-200 p-3 flex flex-col gap-2 hover:shadow-sm transition-shadow" data-id="">
-      <div class="flex justify-between items-start">
-        <h4 class="font-bold text-gray-900 text-sm flex-1"></h4>
-        <div class="flex items-center gap-1 ml-2">
-          <span class="priority-badge px-2 py-1 rounded text-xs font-medium"></span>
-        </div>
-      </div>
-      <p class="text-xs text-gray-600 hidden task-description"></p>
-      <div class="flex justify-between items-center text-xs text-gray-500">
-        <span class="category-badge px-2 py-1 rounded bg-gray-100 text-gray-700 font-medium"></span>
-        <span class="target-amount hidden font-medium text-gray-900"></span>
-      </div>
-      <div class="flex justify-between items-center text-xs">
-        <span class="status-badge px-2 py-1 rounded font-medium hidden"></span>
-        <span class="due-date hidden text-gray-500"></span>
-      </div>
-    </article>
+<article draggable="true" class="task bg-white border border-gray-300 rounded-md p-3 text-sm shadow-sm hover:shadow transition-shadow cursor-pointer">
+  <div class="flex justify-between items-start">
+    <h4 class="font-bold text-gray-800 text-sm leading-snug flex-1 truncate"></h4>
+    <span class="priority-badge text-xs font-semibold rounded-full px-2 py-0.5"></span>
+  </div>
+  <p class="text-xs text-gray-600 mt-1 task-description line-clamp-2 hidden"></p>
+  <div class="flex justify-between items-center text-xs mt-2 text-gray-500">
+    <span class="category-badge font-medium bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full text-[11px]"></span>
+    <span class="target-amount font-semibold hidden text-gray-900"></span>
+  </div>
+  <div class="flex justify-between items-center text-xs mt-1">
+    <span class="status-badge text-white px-2 py-0.5 rounded-full font-medium text-[10px] hidden"></span>
+    <span class="due-date text-gray-400 text-xs hidden"></span>
+  </div>
+</article>
+
   </template>
 
   <!-- Task Modal -->

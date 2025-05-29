@@ -1,0 +1,34 @@
+  body {
+    font-family: 'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif;
+    cursor: default;
+  }
+  .priority-high {
+    color: #b91c1c;
+    background-color: #fee2e2;
+  }
+  .priority-medium {
+    color: #92400e;
+    background-color: #fef3c7;
+  }
+  .priority-low {
+    color: #065f46;
+    background-color: #d1fae5;
+  }
+  .status-badge[data-status="working"] {
+    background-color: #3b82f6;
+  }
+  .status-badge[data-status="research"] {
+    background-color: #6366f1;
+  }
+  .status-badge[data-status="blocked"] {
+    background-color: #ef4444;
+  }
+  .status-badge[data-status="closed"] {
+    background-color: #6b7280;
+  }
+  .status-badge[data-status="need-info"] {
+    background-color: #f59e0b;
+  }
+  .status-badge[data-status="n-a"] {
+    background-color: #9ca3af;
+  }
