@@ -1,159 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="shortcut icon" type="image/x-icon" href="list-check-solid.svg">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <link rel="stylesheet" href="index.css">
-    <meta name="color-scheme" content="light dark"/>
-
-    <title>Task-Man To-Do List App</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FIRE Journey Kanban Board</title>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .dragging { opacity: 0.5; }
+    .priority-high { border-left: 3px solid #dc2626; }
+    .priority-medium { border-left: 3px solid #d97706; }
+    .priority-low { border-left: 3px solid #059669; }
+  </style>
 </head>
-<body>
-
-
-    <!-- <header>
-        <img src="task-man-fav.png" alt="">
-        <h1>Task-Man</h1>
-    </header> -->
-
-
-
-    <header>
-
-        <div class="flex">
-            <i class="fa-solid fa-bars" id="menu-icon"></i>
-            <h1>Task-Man</h1>
-        </div>
-
-
-        <div class="header-title">
-            <a href="index.html"><img src="list-check-solid.svg" alt="Task-Man Logo"></a>
-            <a href="kanban.html"  class="not-active"><img src="table-columns-solid.svg" alt=""></a>
-            
-        </div>
-
-
-    </header>
-
-
-    <nav id="nav-menu">
-        <button class="close-icon" id="close-icon"><i class="fas fa-times"></i></button>
-        <ul class="menu">
-            <li><a href="index.html">Task View</a></li>
-            <li><a href="kanban.html">Kanban View</a></li>
-            <li><a href="#about" id="about-link">About</a></li>
-            <li><a href="https://github.com/bramermatt/task-man" target="_blank">GitHub</a></li>
-            <li><a href="mailto:m.bramer1096@gmail.com?subject=Task-Man To-Do List App Suggestion!" target="_blank">Report an Issue</a></li>
-            <!-- <li><a href="#report" id="report-link">Report an Issue</a></li> -->
-        </ul>
-    </nav>
-
-
-        <!-- HTML for the About modal -->
-        <div id="aboutModal" class="modal">
-            <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>About Task-Man</h2>
-            <p>
-                Task-Man is a streamlined to-do list application designed to help you manage your tasks efficiently. With Task-Man, you can easily add new tasks and organize them as either to-do or completed items. Marking tasks as completed moves them to a dedicated section, helping you keep track of your progress. You can click on tasks to view more details in a modal, providing an expanded view for better readability and management. Task-Man also supports persistent storage by saving your tasks to cookies, ensuring they remain until you decide to delete them. 
-                
-            </p>
-            
-            <p>The user-friendly interface offers a clean and intuitive experience with mobile responsiveness, making task management simple on any device. Task-Man is built using HTML, CSS, and JavaScript, with a focus on simplicity and functionality, to keep your productivity high and your tasks in order.
-            </p>
-
-            <p>
-                If you have any feedback or suggestions, please feel free to contact us at <a href="mailto:m.bramer1096@gmail.com?subject=Task-Man To-Do List App Suggestion!" target="_blank">m.bramer1096@gmail.com</a>.
-            </p>
-
-            <img src="matt-profile.jpeg" alt="">
-            <p>Developed by <a href="https://www.mattbramer.com" target="_blank">Matthew Bramer</a></p>
-
+<body class="bg-gray-50 min-h-screen flex flex-col">
+  <!-- Header -->
+<header class="bg-white border-b border-gray-200 p-4 shadow-sm sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="text-xl"></div>
+            <div>
+                <h1 class="text-xl font-semibold text-gray-900">Tasks Board</h1>
+                <!-- <p class="text-sm text-gray-600">Financial Independence, Retire Early</p> -->
             </div>
         </div>
-
-        <!-- <div id="report-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn">&times;</span>
-    
-                <div id="report-section" class="section">
-                    <h2>Report an Issue</h2>
-                    <form id="issueReportForm" action="report_issue.php" method="POST">
-                        <label for="name">Your Name:</label>
-                        <input type="text" id="name" name="name" required><br><br>
-                        
-                        <label for="email">Your Email:</label>
-                        <input type="email" id="email" name="email" required><br><br>
-                        
-                        <label for="issue">Issue Description:</label><br>
-                        <textarea id="issue" name="issue" rows="4" cols="50" required></textarea><br><br>
-                        
-                        <input type="submit" value="Submit">
-                    </div>
-            </div>
-        </div> -->
-
-        </nav>
-
-
-    <!-- <nav>
-        <div class="menu-icon">
-            <img src="task-man-fav.png" alt="">
-            <h1>Task-Man</h1>
-        </div>
-
-        <ul class="menu" id="menu">
-            <li><a href="">About</a></li>
-            <li><a href="">GitHub</a></li>
-
-            <li><a href="">Report an Issue</a></li>
-        </ul>
-
-    </nav> -->
-
-
-    <div class="container">
-        <h1>To-Do List</h1>
-        
-        <form id="todo-form">
-            <input type="text" id="todo-input" placeholder="Enter a new task" required>
-            <button type="submit"><i class="fa-solid fa-plus"></i></button>
-        </form>
-        <div class="todo-container">
-            <h2 id="todo-heading">To-Do</h2>
-            <ul id="todo-list"></ul>
-        </div>
-        <div class="completed-container">
-            <h2 id="completed-heading">Completed</h2>
-            <ul id="completed-list"></ul>
-        </div>
-    
-        <!-- The Modal -->
-        <div id="taskModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <p id="modal-text"></p>
-                <div class="modal-buttons">
-                    <button id="modal-complete-btn" class="complete-checkbox">
-                        <i class="fas fa-check"></i>
-                    </button>
-                    <button id="modal-delete-btn" class="delete-btn">
-                        <i class="fas fa-trash" style="color: red;"></i>
-                    </button>
+        <div class="flex items-center gap-4">
+            <div class="hidden md:flex items-center gap-4 text-sm text-gray-600">
+                <div class="flex items-center gap-1">
+                    <i class="fas fa-tasks"></i>
+                    <span id="totalTasks">0 tasks</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <i class="fas fa-check"></i>
+                    <span id="completedTasks">0 completed</span>
                 </div>
             </div>
+            <button id="addTaskBtn" class="flex items-center gap-2 bg-gray-900 text-white hover:bg-gray-700 transition-colors px-3 py-2 rounded-lg text-sm">
+                <i class="fa fa-plus"></i>
+                <span class="hidden sm:inline">New Task</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+
+<!-- Board: horizontally scrollable on mobile -->
+<main class="flex-1 overflow-x-auto snap-x snap-mandatory scroll-smooth sm:overflow-visible">
+  <div id="board" class="flex mx-auto m-5 gap-4 px-4 sm:px-0 w-max" style="min-height: 100dvh;">
+  </div>
+</main>
+
+
+
+<!-- Lane Template -->
+<template id="laneTemplate">
+<section
+    class="lane shrink-0 snap-center w-[calc(100vw-2rem)] sm:w-auto sm:min-w-[300px] bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col gap-3"
+    style="min-height: 100dvh;"
+    draggable="true"
+>
+    <header class="flex justify-between items-center pb-2 border-b border-gray-100">
+      <div class="flex items-center gap-2">
+        <!-- Drag Handle -->
+        <!-- <span class="lane-drag-handle cursor-move text-gray-400" title="Drag lane">⠿</span> -->
+        <h3 contenteditable="true" class="font-medium text-gray-900 sticky left-0 bg-white z-10 hover:bg-yellow-100 focus:bg-yellow-100 cursor-text transition-colors"></h3>
+      </div>
+      <span class="task-count bg-gray-100 px-2 py-1 rounded text-xs font-medium text-gray-600">0</span>
+    </header>
+    <div class="tasklist flex-1 flex flex-col gap-2 min-h-[200px]" ondragover="event.preventDefault()"></div>
+  </section>
+</template>
+
+  <!-- Task Template -->
+  <template id="taskTemplate">
+    <article draggable="true" class="task cursor-grab active:cursor-grabbing bg-white rounded-lg border border-gray-200 p-3 flex flex-col gap-2 hover:shadow-sm transition-shadow" data-id="">
+      <div class="flex justify-between items-start">
+        <h4 class="font-bold text-gray-900 text-sm flex-1"></h4>
+        <div class="flex items-center gap-1 ml-2">
+          <span class="priority-badge px-2 py-1 rounded text-xs font-medium"></span>
+        </div>
+      </div>
+      <p class="text-xs text-gray-600 hidden task-description"></p>
+      <div class="flex justify-between items-center text-xs text-gray-500">
+        <span class="category-badge px-2 py-1 rounded bg-gray-100 text-gray-700 font-medium"></span>
+        <span class="target-amount hidden font-medium text-gray-900"></span>
+      </div>
+      <div class="flex justify-between items-center text-xs">
+        <span class="status-badge px-2 py-1 rounded font-medium hidden"></span>
+        <span class="due-date hidden text-gray-500"></span>
+      </div>
+    </article>
+  </template>
+
+  <!-- Task Modal -->
+  <div id="taskModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-lg p-6 w-full max-w-lg shadow-xl max-h-[90vh] overflow-y-auto">
+      <h2 id="modalTitle" class="text-lg font-semibold mb-4 text-gray-900">New Task</h2>
+      <form id="taskForm" class="space-y-4">
+        <input type="hidden" id="taskId" />
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+          <input id="taskTitle" type="text" required class="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-gray-400 focus:border-gray-400" placeholder="e.g., Build Emergency Fund" />
         </div>
 
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+          <textarea id="taskDescription" rows="3" class="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-gray-400 focus:border-gray-400" placeholder="Detailed description of your task..."></textarea>
+        </div>
 
-    <script src="modal.js"></script>
-    <script src="mobile-menu.js"></script>
-    <script src="to-do.js"></script>
-    
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+            <select id="taskCategory" class="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-gray-400 focus:border-gray-400">
+              <option value="savings">Savings</option>
+              <option value="investment">Investment</option>
+              <option value="debt">Debt</option>
+              <option value="income">Income</option>
+              <option value="education">Education</option>
+              <option value="planning">Planning</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+            <select id="taskPriority" class="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-gray-400 focus:border-gray-400">
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Target Amount ($)</label>
+            <input id="taskAmount" type="number" min="0" step="0.01" class="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-gray-400 focus:border-gray-400" placeholder="10000" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Target Date</label>
+            <input id="taskDueDate" type="date" class="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-gray-400 focus:border-gray-400" />
+            <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                const dueDateInput = document.getElementById('taskDueDate');
+                if (dueDateInput) {
+                  dueDateInput.addEventListener('keydown', function (e) {
+                    if (e.key === 't' || e.key === 'T') {
+                      const today = new Date();
+                      const yyyy = today.getFullYear();
+                      const mm = String(today.getMonth() + 1).padStart(2, '0');
+                      const dd = String(today.getDate()).padStart(2, '0');
+                      dueDateInput.value = `${yyyy}-${mm}-${dd}`;
+                      e.preventDefault();
+                      dueDateInput.blur();
+                    }
+                  });
+                }
+              });
+            </script>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Current Status</label>
+          <select id="taskStatus" class="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-gray-400 focus:border-gray-400">
+            <option value="research">Research</option>
+            <option value="working">Working</option>
+            <option value="blocked">Blocked</option>
+            <option value="need-info">Need More Info</option>
+            <option value="n-a">N/A</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+
+        <!-- Lane Dropdown -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Lane</label>
+          <select id="taskLane" class="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-gray-400 focus:border-gray-400">
+            <option value="planning">Planning</option>
+            <option value="action">In Progress</option>
+            <option value="review">Review</option>
+            <option value="achieved">Achieved</option>
+          </select>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-3 border-t border-gray-200">
+          <button type="button" id="deleteBtn" class="hidden text-red-600 hover:text-red-800 px-3 py-2 rounded-md hover:bg-red-50 transition-colors text-sm">
+            <i class="fa fa-trash"></i>
+            Delete
+          </button>
+          <button type="button" id="cancelBtn" class="px-3 py-2 text-gray-600 hover:text-gray-800 rounded-md hover:bg-gray-100 transition-colors text-sm">
+            <i class="fa fa-times"></i>
+            Cancel
+          </button>
+          <button type="submit" class="bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors text-sm">
+            <i class="fa fa-save"></i>
+            Save Task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
 </body>
+
+<script src="js/lanes.js"></script>
+<script src="js/storeTasks.js"></script>
+
 </html>
